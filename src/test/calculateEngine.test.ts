@@ -3,7 +3,6 @@ import * as Path from 'path';
 import CalculateLoader from "../calculateEngine/calculateLoader";
 import assert from 'assert';
 import { TreeConfig } from "../calculateEngine/treeConfig";
-import { InstanceConfig } from "../calculateEngine/instanceConfig";
 import CalculateEngine from "../calculateEngine/calculateEngine";
 
 
@@ -29,6 +28,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"595156eb-10a5-4844-b161-fac32bb1600f",
                         unitID:"00000000-0000-0000-0001-000000000001",
+                        unitName:"Builtin-StaticUnit",
                         inputs:[{
                             type:'value',
                             value:true
@@ -59,6 +59,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"ba963327-bac4-44ec-a510-1e3071890f0d",
                         unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                        unitName:"Builtin-AndUnit",
                         inputs:[{
                             type:'value',
                             value:true
@@ -91,6 +92,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"ba963327-bac4-44ec-a510-1e3071890f0d",
                         unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                        unitName:"Builtin-AndUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -123,6 +125,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"ba963327-bac4-44ec-a510-1e3071890f0d",
                         unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                        unitName:"Builtin-AndUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -155,6 +158,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"ba963327-bac4-44ec-a510-1e3071890f0d",
                         unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                        unitName:"Builtin-AndUnit",
                         inputs:[{
                             type:'ref',
                             value:"01691075-9a3d-4e08-afa3-ac4c6b31a0bb"
@@ -172,6 +176,7 @@ describe('builtin-unit test',() => {
                         {
                             instanceID:"01691075-9a3d-4e08-afa3-ac4c6b31a0bb",
                             unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                            unitName:"Builtin-AndUnit",
                             inputs:[{
                                 type:'value',
                                 value:true
@@ -184,6 +189,7 @@ describe('builtin-unit test',() => {
                         {
                             instanceID:"7da22dd7-e43f-4f65-adc4-eddc6bc46a6e",
                             unitID:"00000000-0000-0000-0001-3336ad58a20e",
+                            unitName:"Builtin-AndUnit",
                             inputs:[{
                                 type:'value',
                                 value:false
@@ -218,6 +224,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"33a12e18-2179-4063-a5f3-50e7817921bb",
                         unitID:"00000000-0000-0000-0001-3424e55bf0d5",
+                        unitName:"Builtin-NormalUnit",
                         inputs:[{
                             type:'value',
                             value:true
@@ -246,6 +253,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"7e1ce892-fc1e-44d0-b4c9-3bc698620c87",
                         unitID:"00000000-0000-0000-0001-3424e55bf0d5",
+                        unitName:"Builtin-NormalUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -276,6 +284,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"eec0a261-8409-4425-ba96-e9ae384b8284",
                         unitID:"00000000-0000-0000-0001-81f8dbd25d7e",
+                        unitName:"Builtin-NotUnit",
                         inputs:[{
                             type:'value',
                             value:true
@@ -304,6 +313,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"0020c78d-4110-4ae7-8481-65c9ff9f3b62",
                         unitID:"00000000-0000-0000-0001-81f8dbd25d7e",
+                        unitName:"Builtin-NotUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -334,6 +344,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"8bb04683-1f61-45dd-b73c-8c2912a05262",
                         unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                        unitName:"Builtin-OrUnit",
                         inputs:[{
                             type:'value',
                             value:true
@@ -366,6 +377,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"a87ec407-2a6c-4a74-9341-92002b663af0",
                         unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                        unitName:"Builtin-OrUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -398,6 +410,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"6b897011-514c-4489-95f7-d56b46923f8a",
                         unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                        unitName:"Builtin-OrUnit",
                         inputs:[{
                             type:'value',
                             value:false
@@ -430,6 +443,7 @@ describe('builtin-unit test',() => {
                     root:{
                         instanceID:"84c06a01-d634-4547-a6dd-071ed2fb9aad",
                         unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                        unitName:"Builtin-OrUnit",
                         inputs:[{
                             type:'ref',
                             value:"c85e221f-6ca7-4b01-9363-e10c31167df2"
@@ -447,6 +461,7 @@ describe('builtin-unit test',() => {
                         {
                             instanceID:"c85e221f-6ca7-4b01-9363-e10c31167df2",
                             unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                            unitName:"Builtin-OrUnit",
                             inputs:[{
                                 type:'value',
                                 value:true
@@ -459,6 +474,7 @@ describe('builtin-unit test',() => {
                         {
                             instanceID:"6a705fba-df2a-481e-b6f9-73be16b6858d",
                             unitID:"00000000-0000-0000-0001-d5802c7b6b41",
+                            unitName:"Builtin-OrUnit",
                             inputs:[{
                                 type:'value',
                                 value:false

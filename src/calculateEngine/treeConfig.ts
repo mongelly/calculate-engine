@@ -7,6 +7,7 @@ export type TreeConfig = {
 export type TreeNodeConfig = {
     instanceID:string;
     unitID:string;
+    unitName:string;
     inputs:InputDefine[];
 }
 
