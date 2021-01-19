@@ -1,5 +1,5 @@
 export type InstanceConfig = {
-    instanceID:string;
+    configID:string;
     configs:InstanceUnitConfig[];
 }
 
