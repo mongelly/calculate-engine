@@ -49,7 +49,7 @@ export default class CalculateLoader {
         if(fs.existsSync(path)){
             const unit = require(path);
             if(unit){
-                if(unit.default.__proto__ != undefined && unit.default.__proto__.name === BaseCalculateUnit.name){
+                if(CalculateLoader.classInterfaceOf(unit.default,BaseCalculateUnit)){
                     let instance = (new unit.default) as BaseCalculateUnit<any>;
                     result.data = {unitID:instance.unitID,unit:instance};
                     result.succeed = true;
@@ -107,6 +107,18 @@ export default class CalculateLoader {
             result.error = CalculateLoaderError.LoadUnitFileFaild(entity.name || "");
         }
         return result;
+    }
+
+    private static classInterfaceOf(object:any,baseclass:any):boolean {
+        if(object.__proto__ != undefined && object.__proto__.name != undefined && baseclass.name != undefined){
+            if(object.__proto__.name === baseclass.name){
+                return true
+            } else {
+                return CalculateLoader.classInterfaceOf(object.__proto__,baseclass);
+            }
+        } else {
+            return false;
+        }
     }
 }
 
