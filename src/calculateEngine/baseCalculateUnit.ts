@@ -6,6 +6,7 @@ export abstract class BaseCalculateUnit<T>{
 
     abstract calculate(ctx:CalculateUnitCtx):Promise<ActionData<T>>
     abstract checkCtx(ctx:CalculateUnitCtx):Promise<ActionResult>;
+    abstract checkInstanceConfig(instanceConfig:any|undefined):Promise<ActionResult>;
 }
 
 export type CalculateUnitCtx = {

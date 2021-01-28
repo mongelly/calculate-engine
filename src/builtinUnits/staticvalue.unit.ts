@@ -23,5 +23,9 @@ export default class StaticBaseCalculateUnit extends BaseCalculateUnit<any> {
         return result;
     }
 
+    public async checkInstanceConfig(instanceConfig:any|undefined):Promise<ActionResult>{
+        return new ActionResult(true);
+    }
+
     private _value:any;
 }

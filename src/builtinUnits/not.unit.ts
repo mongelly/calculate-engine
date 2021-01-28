@@ -11,6 +11,7 @@ export default class NotUnit extends BaseCalculateUnit<boolean>{
         result.data = !result.data;
         return result;
     }
+    
     public async checkCtx(ctx: CalculateUnitCtx): Promise<ActionResult> {
         let result = new ActionResult();
         if(ctx.inputs != undefined && ctx.inputs.length == 1){
@@ -20,5 +21,9 @@ export default class NotUnit extends BaseCalculateUnit<boolean>{
             result.succeed = false;
         }
         return result;
+    }
+
+    public async checkInstanceConfig(instanceConfig:any|undefined):Promise<ActionResult>{
+        return new ActionResult(true);
     }
 }
