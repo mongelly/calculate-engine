@@ -11,7 +11,7 @@ export class CalculateContainer{
         this._instanceConfig = instanceConfg;
         this._subContainer = subContainer || new Array();
         this.containerResult = new ContainerResult();
-        this.containerResult.baseInfo = {instanceID:this.instanceID,unitID:this.unitID,unitName:this.unitName};
+        this.containerResult.baseInfo = {instanceID:this.instanceID,unitID:this.unitID,unitName:this.unitName,executed:this.executed};
     }
 
     public get unitID():string {
@@ -26,10 +26,16 @@ export class CalculateContainer{
         return this._instanceID;
     }
 
+    public get executed():boolean {
+        return this._executed;
+    }
+
     public containerResult:ContainerResult = new ContainerResult();
 
     public async exec(context:any):Promise<ActionData<any>>{
         let result = new ActionData<any>();
+        this._executed = true;
+        this.containerResult.baseInfo.executed = this._executed;
         let unitCtx:CalculateUnitCtx = {
             instanceID:this.instanceID,
             env:this._env,
@@ -96,6 +102,7 @@ export class CalculateContainer{
     private _instanceConfig:InstanceConfig|undefined;
     private _subContainer:Array<CalculateContainer> = new Array();
     private _instanceID:string;
+    private _executed:boolean = false;
 }
 
 export class ContainerResult{
@@ -108,4 +115,5 @@ export class ContainerBaseInfo{
     public instanceID:string = "";
     public unitID:string = "";
     public unitName:string = "";
+    public executed:boolean = false;
 }
