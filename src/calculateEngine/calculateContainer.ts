@@ -10,9 +10,8 @@ export class CalculateContainer{
         this._env = env;
         this._instanceConfig = instanceConfg;
         this._subContainer = subContainer || new Array();
-        for(let sub of this._subContainer){
-            sub.results = this.results;
-        }
+        this.containerResult = new ContainerResult();
+        this.containerResult.baseInfo = {instanceID:this.instanceID,unitID:this.unitID,unitName:this.unitName};
     }
 
     public get unitID():string {
@@ -27,7 +26,7 @@ export class CalculateContainer{
         return this._instanceID;
     }
 
-    public results:ContainerResults = new ContainerResults();
+    public containerResult:ContainerResult = new ContainerResult();
 
     public async exec(context:any):Promise<ActionData<any>>{
         let result = new ActionData<any>();
@@ -45,20 +44,20 @@ export class CalculateContainer{
 
         try {
             let checkInstanceConfigResult = await this._unit.checkInstanceConfig(unitCtx.instanceConfig);
-            if(checkInstanceConfigResult.succeed){
-
-            } else {
+            if(!checkInstanceConfigResult.succeed){
                 let faildResult = new ActionResult();
                 faildResult.copyBase(checkInstanceConfigResult);
-                this.results.failed.set(this.instanceID,faildResult);
+                this.containerResult.result = faildResult;
+
+                result.succeed = true;
+                result.data = false;
+                return result; 
             }
         } catch (error) {
             result.error = error;
             result.succeed = false;
-            this.results.failed.set(this.instanceID,result);
+            this.containerResult.result = result;
         }
-
-
 
         try {
             let checkResult = await this._unit.checkCtx(unitCtx);
@@ -67,21 +66,26 @@ export class CalculateContainer{
                 if(execResult.succeed){
                     result.data = execResult.data;
                     result.succeed = true;
-                    this.results.succeed.set(this.instanceID,result);
+                    this.containerResult.result = result;
                 } else {
                     let faildResult = new ActionResult();
                     faildResult.copyBase(checkResult);
-                    this.results.failed.set(this.instanceID,faildResult);
+                    this.containerResult.result = faildResult;
                 }
             } else {
                 let faildResult = new ActionResult();
                 faildResult.copyBase(checkResult);
-                this.results.failed.set(this.instanceID,faildResult);
+                this.containerResult.result = faildResult;
             }
+
+            for(let sub of this._subContainer){
+                this.containerResult.subResults.set(sub.instanceID,sub.containerResult);
+            }
+
         } catch (error) {
             result.error = error;
             result.succeed = false;
-            this.results.failed.set(this.instanceID,result);
+            this.containerResult.result = result;
         }
 
         return result;
@@ -94,7 +98,14 @@ export class CalculateContainer{
     private _instanceID:string;
 }
 
-export class ContainerResults{
-    public succeed:Map<string,ActionData<any>> = new Map();
-    public failed:Map<string,ActionResult> = new Map();
+export class ContainerResult{
+    public result:ActionResult = new ActionResult();
+    public baseInfo:ContainerBaseInfo = new ContainerBaseInfo();
+    public subResults:Map<string,ContainerResult> = new Map();
+}
+
+export class ContainerBaseInfo{
+    public instanceID:string = "";
+    public unitID:string = "";
+    public unitName:string = "";
 }
