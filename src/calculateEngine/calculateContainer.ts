@@ -109,6 +109,7 @@ export class ContainerResult{
     public result:ActionResult = new ActionResult();
     public baseInfo:ContainerBaseInfo = new ContainerBaseInfo();
     public subResults:Map<string,ContainerResult> = new Map();
+    public executed:boolean = false;
 }
 
 export class ContainerBaseInfo{
