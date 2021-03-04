@@ -11,7 +11,7 @@ export default class AndUnit extends BaseCalculateUnit<boolean>{
         try {
             for(let input of ctx.inputs){
                 let re = await input;
-                if(re.succeed){
+                if(re.error == undefined){
                     result.data = re.data;
                     if(!result.data){
                         break;
@@ -21,10 +21,8 @@ export default class AndUnit extends BaseCalculateUnit<boolean>{
                     return result;
                 }
             }
-            result.succeed = true;
         } catch (error) {
             result.error = error;
-            result.succeed = false;
             return result;
         }
         return result;
@@ -33,10 +31,8 @@ export default class AndUnit extends BaseCalculateUnit<boolean>{
     public async checkCtx(ctx: CalculateUnitCtx): Promise<ActionResult> {
         let result = new ActionResult();
         if(ctx.inputs != undefined && ctx.inputs.length >= 2){
-            result.succeed = true;
         } else {
             result.error = new Error("inputs invalid");
-            result.succeed = false;
         }
         return result;
     }

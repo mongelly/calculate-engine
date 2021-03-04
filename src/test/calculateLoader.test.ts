@@ -8,7 +8,7 @@ describe('loader test',() => {
         let resource:Array<string|any> = new Array();
         resource = [Path.join(__dirname,"../builtinUnits")];
         let loadResult = await CalculateLoader.loadUnits(resource);
-        if(loadResult.succeed){
+        if(loadResult.error == undefined){
             let files = fs.readdirSync(Path.join(__dirname,"../builtinUnits"));
             let regex = "(.unit.js|.unit.ts)$";
             let unitFiles = files.filter(filename => (new RegExp(regex).test(filename)));

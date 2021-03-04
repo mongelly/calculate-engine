@@ -14,7 +14,7 @@ describe('builtin-unit test',() => {
             let resource:Array<string|any> = new Array();
             resource = [Path.join(__dirname,"../builtinUnits")];
             let loadResult = await CalculateLoader.loadUnits(resource);
-            if(loadResult.succeed && loadResult.data){
+            if(loadResult.error == undefined && loadResult.data){
                 units = loadResult.data;
             } else {
                 assert.fail("load faild");
@@ -38,10 +38,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -73,10 +73,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -106,10 +106,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -139,10 +139,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -203,10 +203,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -234,10 +234,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -263,10 +263,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -294,10 +294,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -323,10 +323,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -358,10 +358,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -391,10 +391,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");
@@ -424,10 +424,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,false);
                     } else {
                         assert.fail("exec faild");
@@ -488,10 +488,10 @@ describe('builtin-unit test',() => {
                 };
     
                 let buildResult = await CalculateEngine.calculateUnitBuilder(env,treeConfig,undefined,units);
-                if(buildResult.succeed && buildResult.data){
+                if(buildResult.error == undefined && buildResult.data){
                     let container = buildResult.data!
                     let execResult = await container.exec({});
-                    if(execResult.succeed && execResult.data != undefined){
+                    if(execResult.error == undefined && execResult.data != undefined){
                         assert.strictEqual(execResult.data,true);
                     } else {
                         assert.fail("exec faild");

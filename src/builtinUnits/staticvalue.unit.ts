@@ -13,13 +13,11 @@ export default class StaticBaseCalculateUnit extends BaseCalculateUnit<any> {
 
     public async calculate(ctx: CalculateUnitCtx): Promise<ActionData<any>> {
         let result = new ActionData<any>();
-        result.succeed = true;
         result.data = this._value;
         return result;
     }
     public async checkCtx(ctx: CalculateUnitCtx): Promise<ActionResult> {
         let result = new ActionResult();
-        result.succeed = true;
         return result;
     }
 

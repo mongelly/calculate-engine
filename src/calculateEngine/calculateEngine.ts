@@ -25,7 +25,6 @@ export default class CalculateEngine {
         let result = new ActionData<CalculateContainer>();
 
         if(!this._units.has(treeconfig.unitID)){
-            result.succeed = false;
             result.error = CalculateEngineError.UnitNotFound(treeconfig.unitID);
             return result;
         }
@@ -52,19 +51,17 @@ export default class CalculateEngine {
                             let refID = input.value;
                             let subConfig = this._treeconfig.references.find(ref => { return ref.instanceID == refID; });
                             if(subConfig == undefined){
-                                result.succeed = false;
                                 result.error = CalculateEngineError.UnitNotFound(refID);
                                 return result;
                             }
     
                             if(parents.find(id => id == subConfig!.instanceID) != undefined){
-                                result.succeed = false;
                                 result.error = CalculateEngineError.UnitInstanceInLoop(subConfig!.instanceID);
                                 return result;
                             }
                             
                             let subContainerResult = await this.containerBuilder(subConfig,parents.concat(treeconfig.instanceID));
-                            if((subContainerResult).succeed){
+                            if(subContainerResult.error == undefined){
                                 subContainers.push(subContainerResult.data!);
                             } else {
                                 result.copyBase(subContainerResult);
@@ -77,7 +74,6 @@ export default class CalculateEngine {
             container = new CalculateContainer(treeconfig.instanceID,newUnit,this._env,this._instanceConfg,subContainers);
         }
         result.data = container;
-        result.succeed = true;
         return result;
     }
 

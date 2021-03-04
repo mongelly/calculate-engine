@@ -12,10 +12,8 @@ export default class NormalUnit extends BaseCalculateUnit<boolean>{
     public async checkCtx(ctx: CalculateUnitCtx): Promise<ActionResult> {
         let result = new ActionResult();
         if(ctx.inputs != undefined && ctx.inputs.length == 1){
-            result.succeed = true;
         } else {
             result.error = new Error("inputs invalid");
-            result.succeed = false;
         }
         return result;
     }

@@ -15,12 +15,12 @@ export default class CalculateLoader {
                         let stat = fs.statSync(item);
                         if(stat.isDirectory()){
                             let loadResult = await this.loadUnitFromDir(item);
-                            if(loadResult.succeed){
+                            if(loadResult.error == undefined){
                                 map = new Map([...map,...loadResult.data!]);
                             }
                         } else if(stat.isFile()){
                             let loadResult = await this.loadUnitFromFile(item);
-                            if(loadResult.succeed){
+                            if(loadResult.error == undefined){
                                 map.set(loadResult.data!.unitID,loadResult.data!.unit);
                             }
                         }
@@ -29,15 +29,13 @@ export default class CalculateLoader {
                     }
                 } else if(item.__proto__ != undefined && item.__proto__.name == BaseCalculateUnit.name){
                     let loadResult = await this.loadUnitFromEntity(item);
-                    if(loadResult.succeed){
+                    if(loadResult.error == undefined){
                         map.set(loadResult.data!.unitID,loadResult.data!.unit);
                     }
                 }
             }
             result.data = map;
-            result.succeed = true;
         } else {
-            result.succeed = false;
             result.error = CalculateLoaderError.NoLoadAnyUnits;
         }
 
@@ -52,17 +50,13 @@ export default class CalculateLoader {
                 if(CalculateLoader.classInterfaceOf(unit.default,BaseCalculateUnit)){
                     let instance = (new unit.default) as BaseCalculateUnit<any>;
                     result.data = {unitID:instance.unitID,unit:instance};
-                    result.succeed = true;
                 } else {
-                    result.succeed = false;
                     result.error = CalculateLoaderError.LoadUnitFileFaild(path);
                 }
             } else {
-                result.succeed = false;
                 result.error = CalculateLoaderError.LoadUnitFileFaild(path);
             }
         } else {
-            result.succeed = false;
             result.error = CalculateLoaderError.LoadUnitFileFaild(path);
         }
         return result;
@@ -78,18 +72,15 @@ export default class CalculateLoader {
             for(const unitFile of unitFiles){
                 let fileFullPath = Path.join(path,unitFile);
                 let loadResult = await this.loadUnitFromFile(fileFullPath);
-                if(loadResult.succeed){
+                if(loadResult.error == undefined){
                     result.data.set(loadResult.data!.unitID,loadResult.data!.unit);
                 } else {
-                    result.succeed = false;
                     result.error = CalculateLoaderError.LoadUnitFileFaild(unitFile);
                     result.data = undefined;
                     return result;
                 }
-                result.succeed = true;
             }
         } catch (error) {
-            result.succeed = false;
             result.error = CalculateLoaderError.LoadUnitFileFaild(path);
         }
 
@@ -101,9 +92,7 @@ export default class CalculateLoader {
         if(entity.__proto__ != undefined && entity.__proto__.name == BaseCalculateUnit.name){
             let instance = (new entity) as BaseCalculateUnit<any>;
             result.data = {unitID:instance.unitID,unit:instance};
-            result.succeed = true;
         } else {
-            result.succeed = false;
             result.error = CalculateLoaderError.LoadUnitFileFaild(entity.name || "");
         }
         return result;

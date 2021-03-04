@@ -50,28 +50,24 @@ export class CalculateContainer{
 
         try {
             let checkInstanceConfigResult = await this._unit.checkInstanceConfig(unitCtx.instanceConfig);
-            if(!checkInstanceConfigResult.succeed){
+            if(!checkInstanceConfigResult.error == undefined){
                 let faildResult = new ActionResult();
                 faildResult.copyBase(checkInstanceConfigResult);
                 this.containerResult.result = faildResult;
-
-                result.succeed = true;
                 result.data = false;
                 return result; 
             }
         } catch (error) {
             result.error = error;
-            result.succeed = false;
             this.containerResult.result = result;
         }
 
         try {
             let checkResult = await this._unit.checkCtx(unitCtx);
-            if(checkResult.succeed){
+            if(checkResult.error == undefined){
                 let execResult = await this._unit.calculate(unitCtx);
-                if(execResult.succeed){
+                if(execResult.error == undefined){
                     result.data = execResult.data;
-                    result.succeed = true;
                     this.containerResult.result = result;
                 } else {
                     let faildResult = new ActionResult();
@@ -90,7 +86,6 @@ export class CalculateContainer{
 
         } catch (error) {
             result.error = error;
-            result.succeed = false;
             this.containerResult.result = result;
         }
 
